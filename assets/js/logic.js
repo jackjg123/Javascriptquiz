@@ -75,53 +75,53 @@ function getQuestion() {
 }
 
 function questionClick(event) {
-var buttonEl = event.target;
+  var buttonEl = event.target;
 
-// if the clicked element is not a choice button, do nothing.
-if (!buttonEl.matches('.choice')) {
-return;
-}
+  // if the clicked element is not a choice button, do nothing.
+  if (!buttonEl.matches('.choice')) {
+    return;
+  }
+  var selectedChoice = buttonEl.getElementById('value');
 
-// check if user guessed wrong
-if () {
+  var currentQuestion = questions[presentQuestionIndex];
+  // check if user guessed wrong
+  if (selectedChoice !== currentQuestion.answer) {
+    // penalize time minus one second
+    time -= 10;
+    // display new time on page
+    timerEl.textContent = time;
+    // flash right/wrong feedback on page for half a second
+    feedbackEl.textContent = 'Wrong answer';
+    setTimeout(function () {
+      feedbackEl.textContent = '';
+    }, 500);
+    // move to next question
 
-// penalize time minus one second
+    // check if we've run out of questions or if time ran out?
+    if (presentQuestionIndex >= questions.length || time <= 0) {
+      quizEnd();
+    } else {
+      getQuestion();
+    }
+  }
 
-// display new time on page
+  function quizEnd() {
+    // stop timer
 
-// flash right/wrong feedback on page for half a second
+    // show end screen
+    var endScreenEl = document.getElementById('');
+    endScreenEl.removeAttribute('class');
 
-// move to next question
+    // show final score
+    var finalScoreEl = document.getElementById('');
+    finalScoreEl.textContent = time;
 
-// check if we've run out of questions or if time ran out?
-if () {
+    // hide questions section
+  }
 
-//     //if it did ???
-
-} else {
-
-//     // if it didnt??
-}
-}
-
-function quizEnd() {
-// stop timer
-
-// show end screen
-var endScreenEl = document.getElementById('');
-endScreenEl.removeAttribute('class');
-
-// show final score
-var finalScoreEl = document.getElementById('');
-finalScoreEl.textContent = time;
-
-// hide questions section
-
-}
-
-function clockTick() {
-  // update time
-  time--;
+  function clockTick() {
+    // update time
+    time--;
     // decrement the variable we are using to track time
     timerId.textContent = time; // update out time
 
@@ -133,50 +133,50 @@ function clockTick() {
   }
 }
 function saveHighScore() {
-// get value of input box
-var initials = initialsEl.value.trim();
+  // get value of input box
+  var initials = initialsEl.value.trim();
 
-// make sure value wasn't empty
-if (initials > '') {
+  // make sure value wasn't empty
+  if (initials > '') {
+    var highScores = JSON.parse(window.localStorage.getItem(highscores));
 
+    // format new score object for current user
+    var newScore = {
+      score: time,
+      initials: initials,
+    };
 
-var highScores =
-JSON.parse(window.localStorage.getItem(highscores));
+    //     // save to localstorage
+    highScores.push(newScore);
+    window.localStorage.setItem(
+      'highScores',
+      JSON.stringify(/* What would we put inside STRINGIFY? */)
+    );
 
-// format new score object for current user
-var newScore = {
-score: time,
-initials: initials,
-};
-
-//     // save to localstorage
-highScores.push(newScore);
- window.localStorage.setItem('highScores', JSON.stringify(/* What would we put inside STRINGIFY? */));
-
-// redirect to next page
-window.location.href = '';
-}
+    // redirect to next page
+    window.location.href = '';
+  }
 }
 
 function checkForEnter(event) {
-//   // "13" represents the enter key
-if (event.key === 'Enter') {
-saveHighScore();
-}
+  //   // "13" represents the enter key
+  if (event.key === 'Enter') {
+    saveHighScore();
+  }
 }
 
- // user clicks button to submit initials
-submitBtn.onclick = function() {
-saveHighScore();
+// user clicks button to submit initials
+submitBtn.onclick = function () {
+  saveHighScore();
 };
 
 // // user clicks button to start quiz
-startBtn.onclick = function() {
+startBtn.onclick = function () {
   startQuiz();
-}
+};
 
 // user clicks on element containing choices
-choicesEl.onclick = function() {
+choicesEl.onclick = function () {
   getQuestion();
 };
 
