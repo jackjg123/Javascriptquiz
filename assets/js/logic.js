@@ -1,43 +1,55 @@
 // variables to keep track of quiz state
-var currentQuestionIndex = 0;
+var presentQuestionIndex = 0;
+console.log(presentQuestionIndex);
 //time left value here
 // var time = ;
 var timerId;
+console.log(timerId);
 
 // variables to reference DOM elements
-var questionsEl = document.getElementById('');
-var timerEl = document.getElementById('');
-var choicesEl = document.getElementById('');
-var submitBtn = document.getElementById('');
-var startBtn = document.getElementById('');
-var initialsEl = document.getElementById('');
-var feedbackEl = document.getElementById('');
+var questionsEl = document.getElementById('questions');
+console.log(questionsEl);
+var timerEl = document.getElementById('timer');
+console.log(timerEl);
+var choicesEl = document.getElementById('choices');
+console.log(choicesEl);
+var submitBtn = document.getElementById('submit');
+console.log(submitBtn);
+var startBtn = document.getElementById('start');
+console.log(startBtn);
+var initialsEl = document.getElementById('initials');
+console.log(initialsEl);
+var feedbackEl = document.getElementById('feedback');
 
 
 function startQuiz() {
-  // hide start screen
-  var startScreenEl = document.getElementById('');
-  startScreenEl.setAttribute('class', '');
+  // Hide start screen
+  var startScreenEl = document.getElementById('startScreen');
+  startScreenEl.setAttribute('class', 'hide');
 
-  // un-hide questions section
-  questionsEl.removeAttribute('');
+  // Unhide questions section
+  var questionsEl = document.getElementById('questions');
+  questionsEl.removeAttribute('class', 'hide');
 
-  // start timer
-  timerId = setInterval(clockTick, 1000);
+  // Start timer
+  var timerId = setInterval(clockTick, 1000);
 
-  // show starting time
+  // Show starting time
+  var timerEl = document.getElementById('time');
   timerEl.textContent = time;
 
+  // Get question
   getQuestion();
 }
 
+
 function getQuestion() {
   // get current question object from array
-  var currentQuestion = questions[currentQuestionIndex];
+  var presentQuestion = questionsEl[presentQuestionIndex];
 
   // update title with current question
-  var titleEl = document.getElementById('');
-  titleEl.textContent = ; //think dot notation
+  var titleEl = document.getElementById('questions');
+  titleEl.textContent = presentQuestion.title; //think dot notation
 
   // clear out any old question choices
   choicesEl.innerHTML = '';
@@ -45,7 +57,7 @@ function getQuestion() {
   // loop over choices
   for (var i = 0; i < ; i++) {
     // create new button for each choice
-    var choice = currentQuestion.choices[i];
+    var choice = presentQuestion.choices[i];
     var choiceNode = document.createElement('');
     choiceNode.setAttribute('class', 'choice');
     choiceNode.setAttribute('value', choice);
@@ -120,7 +132,7 @@ function clockTick() {
   }
 }
 
-function saveHighscore() {
+function saveHighScore() {
   // get value of input box
   var initials = initialsEl.value.trim();
 
@@ -129,7 +141,7 @@ function saveHighscore() {
 
     // get saved scores from localstorage, or if not any, set to empty array
     
-    var highscores =
+    var highScores =
       JSON.parse() /* what would go inside the PARSE??*/ || [];
 
     // format new score object for current user
@@ -139,8 +151,8 @@ function saveHighscore() {
     };
 
     // save to localstorage
-    highscores.push(newScore);
-    window.localStorage.setItem('highscores', JSON.stringify(/* What would we put inside STRINGIFY? */));
+    highScores.push(newScore);
+    window.localStorage.setItem('highScores', JSON.stringify(/* What would we put inside STRINGIFY? */));
 
     // redirect to next page
     window.location.href = '';
@@ -150,12 +162,12 @@ function saveHighscore() {
 function checkForEnter(event) {
   // "13" represents the enter key
   if (event.key === 'Enter') {
-    saveHighscore();
+    saveHighScore();
   }
 }
 
 // user clicks button to submit initials
-submitBtn.onclick = saveHighscore;
+submitBtn.onclick = saveHighScore;
 
 // user clicks button to start quiz
 startBtn.onclick = startQuiz;
