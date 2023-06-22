@@ -1,12 +1,20 @@
 document.addEventListener('DOMContentLoaded', function () {
   var questionsEl = document.getElementById('questions');
+
   console.log(questionsEl);
+
   var timerEl = document.getElementById('time');
+
   console.log(timerEl);
+
   var choicesEl = document.getElementById('choices');
+
   console.log(choicesEl);
+
   var submitBtn = document.getElementById('submit');
+
   console.log(submitBtn);
+
   var startBtn = document.getElementById('start');
   console.log(startBtn);
   var initialsEl = document.getElementById('initials');
@@ -15,34 +23,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var presentQuestionIndex = 0;
   console.log(presentQuestionIndex);
-  var time = 10;
+  var time = 15;
   var countdown;
 
+  startBtn.addEventListener('click', startQuiz);
+
   function startQuiz() {
-    var startScreenEl = document.getElementById('start-screen');
-    startScreenEl.setAttribute('class', 'hide');
+    document.getElementById('start-screen').classList.add('hide');
+    document.getElementById()('questions').classList.remove('hide');
 
-    questionsEl.removeAttribute('class', 'hide');
-
-    countdown = setInterval(function () {
-      updateTimerDisplay();
-      time--;
-      if (time <= 0) {
-        clearInterval(countdown);
-        quizEnd();
-      }
-    }, 1000);
-
-    function updateTimerDisplay() {
-      timerEl.textContent = 'Time: ' + time;
-    }
+    startTimer();
 
     getQuestion();
+
   }
 
-  function getQuestion() {
-    var presentQuestion = questions[presentQuestionIndex];
 
+  // Function to start the timer
+  function startTimer() {
+    timerInterval = setInterval(function() {
+    time--;
+    timerElement.textContent = time;
+
+    if (time <= 0) {
+      endQuiz();
+    }
+  }, 1000);
+  }      
     var titleEl = document.getElementById('question-title');
     titleEl.textContent = presentQuestion.title;
 
@@ -63,7 +70,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!buttonEl.matches('.choice')) {
       return;
     }
-
     var selectedChoice = parseInt(buttonEl.getAttribute('value'));
 
     var currentQuestion = questions[presentQuestionIndex];
@@ -72,13 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
       feedbackEl.textContent = 'Correct!';
     } else {
       feedbackEl.textContent = 'Wrong!';
+
       time -= 1;
     }
+
     setTimeout(function () {
       feedbackEl.textContent = '';
     }, 1000);
-
     presentQuestionIndex++;
+
     if (presentQuestionIndex >= questions.length || time <= 0) {
       quizEnd();
     } else {
@@ -89,56 +97,68 @@ document.addEventListener('DOMContentLoaded', function () {
   function quizEnd() {
     // stop timer
     clearInterval(countdown);
+
+    var correctAnswers = 0;
+    questions.forEach(function (question) {
+      if (question.userChoice === question.answer) {
+        correctAnswers++;
+      }
+      }
+      // show end screen
+      var endScreenEl = document.getElementById('end-screen');
+      endScreenEl.classList.remove('hide');
+
+      // show final score
+      var finalScoreEl = document.getElementById('final-score');
+      finalScoreEl.textContent = correctAnswers;
+
+      // hide questions section
+      questionsEl.classList.add('hide');
+    });
+
+    saveHighScore();
     // show end screen
     var endScreenEl = document.getElementById('end-screen');
     endScreenEl.classList.remove('hide');
 
     // show final score
     var finalScoreEl = document.getElementById('final-score');
-    finalScoreEl.textContent = time;
+    finalScoreEl.textContent = correctAnswers;
 
     // hide questions section
     questionsEl.classList.add('hide');
   }
 
   function saveHighScore() {
-    // get value of input box
     var initials = initialsEl.value.trim();
 
-    // make sure value wasn't empty
     if (initials !== '') {
       var highScores =
         JSON.parse(window.localStorage.getItem(highScores)) || [];
 
       // format new score object for current user
       var newScore = {
-        score: time,
+        score: correctAnswers,
         initials: initials,
       };
 
-      //     // save to localstorage
-      highScores.push(newScore);
+      highScores.push('#final-score');
+
       window.localStorage.setItem('highScores', JSON.stringify(highScores));
 
-      // redirect to next page
       window.location.href = 'highScores.html';
     }
   }
 
   function checkForEnter(event) {
-    //   // "13" represents the enter key
     if (event.key === 'Enter') {
       saveHighScore();
     }
   }
-  // user clicks button to submit initials
+
+  // adds function to the buttons and enter key
   submitBtn.addEventListener('click', saveHighScore);
-
-  // // user clicks button to start quiz
   startBtn.addEventListener('click', startQuiz);
-
-  // user clicks on element containing choices
   choicesEl.addEventListener('click', questionClick);
-
   initialsEl.addEventListener('keyup', checkForEnter);
 });
