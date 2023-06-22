@@ -2,16 +2,11 @@
 var questions = [
   {
     // title is a string property that will show the current question.
-    title: 'Questions 1',
+    title: 'Which of the following is a number?',
     //choices is an array property that hold four answer possibilities.
-    choices: [
-      'placeholder 1',
-      'placeholder 2',
-      'placeholder 3',
-      'placeholder 4',
-    ],
+    choices: ['"4"', '"four"', 'four', '4'],
     // answers is an array property that holds the correct answer that is equal to the current question.
-    answer: 'placeholder 1',
+    answer: '4',
   },
 
   {
@@ -67,5 +62,5 @@ var questions = [
   },
 ];
 console.log(questions);
-var presentQuestionIndex = questions;
+var presentQuestionIndex = questions.length;
 console.log(presentQuestionIndex);
