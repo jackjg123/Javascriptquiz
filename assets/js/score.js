@@ -1,26 +1,25 @@
 function printHighScores() {
-  // either get scores from localstorage or set to empty array
   var highScores = JSON.parse(window.localStorage.getItem('highScores')) || [];
 
-  // sort highScores by score property in descending order HINT: the sort method.
+  // Sort highscores by score property in descending order
+  highScores.sort(function (a, b) {
+    return b.score - a.score;
+  });
 
-  for (var i = 0; i < highScores.length; i += 1) {
-    // create li tag for each high score
-    var liTag = document.createElement('bestScores');
+  for (var i = 0; i < highScores.length; i++) {
+    var olEl = document.getElementById('highScores');
+    var liTag = document.createElement('li');
     liTag.textContent = highScores[i].initials + ' - ' + highScores[i].score;
-
-    // display on page
-    var olEl = document.getElementById('bestScores');
-    olEl.appendChild(bestScores[i]);
+    olEl.appendChild(liTag);
   }
 }
 
 function clearHighScores() {
-  window.localStorage.removeItem('');
+  window.localStorage.removeItem('highScores');
   window.location.reload();
 }
 
 document.getElementById('clear').onclick = clearHighScores;
 
-// run function when page loads
+// Run function when page loads
 printHighScores();
