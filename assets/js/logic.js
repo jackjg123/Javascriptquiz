@@ -70,14 +70,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (selectedChoice === currentQuestion.answer) {
       feedbackEl.textContent = 'Correct!';
-    }
-    if (selectedChoice !== currentQuestion.answer) {
+    } else {
       feedbackEl.textContent = 'Wrong!';
-      time -= 10;
-    } else
-      setTimeout(function () {
-        feedbackEl.textContent = '';
-      }, 1000);
+      time -= 1;
+    }
+    setTimeout(function () {
+      feedbackEl.textContent = '';
+    }, 1000);
 
     presentQuestionIndex++;
     if (presentQuestionIndex >= questions.length || time <= 0) {
