@@ -56,7 +56,7 @@ var questions = [
       ' pTags[0].setAttribute("style", "font-size: 40px;")',
       ' pTags[0]attribute.Set("style", "font-size: 40px;")',
     ],
-    answer: 'pTags[0].setAttribute("style", "font-size: 40px;',
+    answer: ' pTags[0].setAttribute("style", "font-size: 40px;',
   },
 
   {
