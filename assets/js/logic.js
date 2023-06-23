@@ -52,7 +52,7 @@ function questionClick(event) {
     feedbackEl.textContent = 'Correct!';
   } else {
     feedbackEl.textContent = 'Wrong!';
-    time -= 20;
+    time -= 10;
     if (time < 0) {
       time = 0;
     }

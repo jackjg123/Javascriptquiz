@@ -1,4 +1,4 @@
-// list of all questions, choices, and answers
+// creates the questions object
 var questions = [
   {
     // title is a string property that will show the current question.
@@ -48,7 +48,27 @@ var questions = [
       ' pTags[0].setAttribute("style", "font-size: 40px;")',
       ' pTags[0]attribute.Set("style", "font-size: 40px;")',
     ],
-    answer: 'placeholder 2',
+    answer: 'pTags[0].setAttribute("style", "font-size: 40px;',
+  },
+  {
+    title: 'How is an example of setting an attribute?',
+    choices: [
+      ' pTags[0].AttributeSet("style", "font-size: 40px;")',
+      ' pTags[0]set.Attribute("style", "font-size: 40px;")',
+      ' pTags[0].setAttribute("style", "font-size: 40px;")',
+      ' pTags[0]attribute.Set("style", "font-size: 40px;")',
+    ],
+    answer: 'pTags[0].setAttribute("style", "font-size: 40px;',
+  },
+  {
+    title: 'How is an example of setting an attribute?',
+    choices: [
+      ' pTags[0].AttributeSet("style", "font-size: 40px;")',
+      ' pTags[0]set.Attribute("style", "font-size: 40px;")',
+      ' pTags[0].setAttribute("style", "font-size: 40px;")',
+      ' pTags[0]attribute.Set("style", "font-size: 40px;")',
+    ],
+    answer: 'pTags[0].setAttribute("style", "font-size: 40px;',
   },
 ];
 console.log(questions);
