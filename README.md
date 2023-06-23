@@ -27,17 +27,25 @@ This is a web application that provides the user a multiple choice quiz that tes
   - Navigate to "APPURL.url
   
 # Usage
+
   - Click start button to begin the quiz.
-  
+
   - Read each question and choose the one appropriate answer.
-  
+
   - Get immediate feedback
-  
+
   - Must complete the quiz before the time runs out to get a score better than zero.
-  
+
   - Click submit button to save high score when quiz is over.
-  
+
   - Click the highscores link to view high score.
-  
+
   - Click the clear highscores button to clear the highscores.
-  
+
+# License 
+
+This project is licensed under the MIT License.
+
+# Acknowledgements
+
+- Used 

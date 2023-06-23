@@ -1,4 +1,4 @@
-// variables to keep track of quiz state
+// variables to keep track of the state of the quiz.
 var currentQuestionIndex = 0;
 var time = 60;
 var timerId;
@@ -16,6 +16,7 @@ var choiceNode; // Will be used inside the loop
 var endScreenEl = document.getElementById('end-screen');
 var finalScoreEl = document.getElementById('final-score');
 
+// Starts the quiz
 function startQuiz() {
   startScreenEl.setAttribute('class', 'hide');
   questionsEl.removeAttribute('class');
@@ -24,6 +25,7 @@ function startQuiz() {
   getQuestion();
 }
 
+// Function to get the current question and display it.
 function getQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
   titleEl.textContent = currentQuestion.title;
@@ -39,6 +41,7 @@ function getQuestion() {
   }
 }
 
+// Handles the question click event
 function questionClick(event) {
   var buttonEl = event.target;
 
@@ -73,13 +76,15 @@ function questionClick(event) {
   }
 }
 
+//Ends the quiz, stops the timer, and displays the final score.
 function quizEnd() {
   clearInterval(timerId); // Stop the timer
-  questionsEl.setAttribute('class', 'hide'); // Hide the questions
-  endScreenEl.removeAttribute('class'); // Show the end screen
-  finalScoreEl.textContent = time; // Display the final score
+  questionsEl.setAttribute('class', 'hide');
+  endScreenEl.removeAttribute('class');
+  finalScoreEl.textContent = time;
 }
 
+// decrements the timer and checks if the quiz has finished.
 function clockTick() {
   time--;
   timerEl.textContent = time;
@@ -89,6 +94,7 @@ function clockTick() {
   }
 }
 
+// Saves the High Score
 function saveHighscore() {
   var initials = initialsEl.value.trim();
 
@@ -111,6 +117,7 @@ function saveHighscore() {
   }
 }
 
+// Adds the ability to save using the enter key
 function checkForEnter(event) {
   if (event.key === 'Enter') {
     saveHighscore(newScore);
